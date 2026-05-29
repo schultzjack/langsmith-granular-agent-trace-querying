@@ -1,0 +1,81 @@
+{
+  "audit_date": "2026-05-29",
+  "source": {
+    "npm": "npm view <package> version --json",
+    "pypi": "python3 -m pip index versions <package>"
+  },
+  "npm": {
+    "@langchain/core": {
+      "latest": "1.1.48",
+      "repo_pin": "1.1.48",
+      "status": "current"
+    },
+    "@langchain/openai": {
+      "latest": "1.4.7",
+      "repo_pin": "1.4.7",
+      "status": "current"
+    },
+    "@langchain/langgraph": {
+      "latest": "1.3.2",
+      "repo_pin": null,
+      "status": "not-yet-covered-directly"
+    },
+    "langsmith": {
+      "latest": "0.7.3",
+      "repo_pin": "0.7.3",
+      "status": "current"
+    },
+    "openai": {
+      "latest": "6.39.1",
+      "repo_pin": "6.39.1",
+      "status": "current"
+    },
+    "zod": {
+      "latest": "4.4.3",
+      "repo_pin": "4.4.3",
+      "status": "current"
+    },
+    "dotenv": {
+      "latest": "17.4.2",
+      "repo_pin": "17.4.2",
+      "status": "current"
+    }
+  },
+  "pypi": {
+    "langchain": {
+      "latest": "1.3.2",
+      "repo_pin": "1.3.2",
+      "status": "current"
+    },
+    "langchain-openai": {
+      "latest": "1.2.2",
+      "repo_pin": "1.2.2",
+      "status": "current"
+    },
+    "langgraph": {
+      "latest": "1.2.2",
+      "repo_pin": "1.2.2",
+      "status": "current"
+    },
+    "langsmith": {
+      "latest": "0.8.7",
+      "repo_pin": "0.8.7",
+      "status": "current"
+    },
+    "deepagents": {
+      "latest": "0.6.6",
+      "repo_pin": "0.6.6",
+      "status": "current"
+    },
+    "openai": {
+      "latest": "2.38.0",
+      "repo_pin": "2.38.0",
+      "status": "current"
+    },
+    "python-dotenv": {
+      "latest": "1.2.2",
+      "repo_pin": "1.2.2",
+      "status": "current"
+    }
+  }
+}

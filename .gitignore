@@ -1,0 +1,24 @@
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Dependencies and caches
+node_modules/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Reports generated locally
+reports/local/
+*.log
+
+# OS/editor state
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo

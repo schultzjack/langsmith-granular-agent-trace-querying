@@ -1,0 +1,151 @@
+{
+  "fixture_kind": "official-openai-live-golden-summary",
+  "status": "passed",
+  "run_id": "redacted-live-suite-run-id",
+  "project": "langsmith-hyper-granular-agent-trace-querying",
+  "project_id": "redacted-langsmith-project-id",
+  "workspace_id": "redacted-langsmith-workspace-id",
+  "target_base_url": "https://api.openai.com/v1",
+  "target_endpoint_kind": "official-openai",
+  "uses_official_openai": true,
+  "model": "gpt-5.5",
+  "scenarios": [
+    {
+      "id": "openai-sdk-chat-tool",
+      "status": "passed",
+      "openai_shape": {
+        "object": "chat.completion",
+        "finish_reason": "tool_calls",
+        "message_role": "assistant",
+        "content_kind": "null",
+        "tool_calls": [
+          {
+            "type": "function",
+            "name": "lookup_trace_contract",
+            "arguments_shape": {
+              "query": "string"
+            }
+          }
+        ],
+        "usage_present": true
+      },
+      "langsmith_shape": {
+        "root_id": "redacted-root-openai-sdk-chat-tool",
+        "run_count": 1,
+        "max_depth": 0,
+        "llm_run_count": 1,
+        "tool_run_count": 0,
+        "has_expected_tool_call": true,
+        "parent_query_child_count": 0,
+        "tree_filter_count": 1
+      }
+    },
+    {
+      "id": "openai-sdk-chat-stream-tool",
+      "status": "passed",
+      "stream_shape": {
+        "chunk_count": 11,
+        "nonzero_gap_count": 3,
+        "max_inter_chunk_ms": 30,
+        "temporal_class": "incremental",
+        "true_incremental_timing": true
+      },
+      "langsmith_shape": {
+        "root_id": "redacted-root-openai-sdk-chat-stream-tool",
+        "run_count": 1,
+        "max_depth": 0,
+        "llm_run_count": 1,
+        "tool_run_count": 0,
+        "has_expected_tool_call": true,
+        "parent_query_child_count": 0,
+        "tree_filter_count": 2
+      }
+    },
+    {
+      "id": "openai-sdk-responses-structured",
+      "status": "passed",
+      "openai_shape": {
+        "object": "response",
+        "status": "completed",
+        "output_types": [
+          "message"
+        ],
+        "output_text_shape": {
+          "answer": "string",
+          "scenario": "string"
+        },
+        "function_calls": [],
+        "usage_present": true
+      },
+      "langsmith_shape": {
+        "root_id": "redacted-root-openai-sdk-responses-structured",
+        "run_count": 1,
+        "max_depth": 0,
+        "llm_run_count": 1,
+        "tool_run_count": 0,
+        "parent_query_child_count": 0,
+        "tree_filter_count": 3
+      }
+    },
+    {
+      "id": "openai-sdk-responses-stream-text",
+      "status": "passed",
+      "event_types": [
+        "response.created",
+        "response.in_progress",
+        "response.output_item.added",
+        "response.output_item.done",
+        "response.content_part.added",
+        "response.output_text.delta",
+        "response.output_text.done",
+        "response.content_part.done",
+        "response.completed"
+      ],
+      "stream_shape": {
+        "chunk_count": 13,
+        "nonzero_gap_count": 9,
+        "max_inter_chunk_ms": 328,
+        "temporal_class": "incremental",
+        "true_incremental_timing": true
+      },
+      "langsmith_shape": {
+        "root_id": "redacted-root-openai-sdk-responses-stream-text",
+        "run_count": 1,
+        "max_depth": 0,
+        "llm_run_count": 1,
+        "tool_run_count": 0,
+        "parent_query_child_count": 0,
+        "tree_filter_count": 4
+      }
+    },
+    {
+      "id": "langchain-tool-trace",
+      "status": "passed",
+      "tool_calls": 1,
+      "langsmith_shape": {
+        "root_id": "redacted-root-langchain-tool-trace",
+        "run_count": 2,
+        "max_depth": 1,
+        "llm_run_count": 1,
+        "tool_run_count": 0,
+        "has_expected_tool_call": true,
+        "parent_query_child_count": 1,
+        "tree_filter_count": 6
+      }
+    },
+    {
+      "id": "deepagents-trace",
+      "status": "passed",
+      "langsmith_shape": {
+        "root_id": "redacted-root-deepagents-trace",
+        "run_count": 30,
+        "max_depth": 5,
+        "llm_run_count": 4,
+        "tool_run_count": 3,
+        "has_expected_tool_call": true,
+        "parent_query_child_count": 9,
+        "tree_filter_count": 10
+      }
+    }
+  ]
+}

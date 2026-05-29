@@ -1,0 +1,21 @@
+{
+  "name": "langsmith-hyper-granular-agent-trace-querying",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Evidence-backed LangSmith trace-querying investigation for nested agent traces.",
+  "scripts": {
+    "example:openai": "node examples/openai_chat_tool_trace.mjs",
+    "example:langchain": "node examples/langchain_chatopenai_tool_trace.mjs",
+    "example:query": "node examples/query_langsmith_traces.mjs",
+    "check:reports": "node scripts/validate_reports.mjs",
+    "check:public": "node scripts/validate_reports.mjs && node --check examples/openai_chat_tool_trace.mjs && node --check examples/langchain_chatopenai_tool_trace.mjs && node --check examples/query_langsmith_traces.mjs"
+  },
+  "dependencies": {
+    "@langchain/core": "1.1.48",
+    "@langchain/openai": "1.4.7",
+    "dotenv": "17.4.2",
+    "langsmith": "0.7.3",
+    "openai": "6.39.1",
+    "zod": "4.4.3"
+  }
+}

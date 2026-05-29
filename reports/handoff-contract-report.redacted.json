@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "run_id": "redacted-live-suite-run-id",
+  "project": "langsmith-hyper-granular-agent-trace-querying",
+  "project_id": "redacted-langsmith-project-id",
+  "workspace_id": "redacted-langsmith-workspace-id",
+  "target": "https://api.openai.com/v1",
+  "model": "gpt-5.5",
+  "uses_official_openai": true,
+  "checks": [
+    {
+      "name": "openai-sdk-chat-tool",
+      "status": "passed",
+      "max_depth": 0,
+      "llm_run_count": 1,
+      "tool_run_count": 0,
+      "tool_call_evidence": true
+    },
+    {
+      "name": "openai-sdk-chat-stream-tool",
+      "status": "passed",
+      "max_depth": 0,
+      "llm_run_count": 1,
+      "tool_run_count": 0,
+      "tool_call_evidence": true,
+      "true_streaming_timing": true
+    },
+    {
+      "name": "openai-sdk-responses-structured",
+      "status": "passed",
+      "max_depth": 0,
+      "llm_run_count": 1,
+      "tool_run_count": 0,
+      "structured_output_parsed": true
+    },
+    {
+      "name": "openai-sdk-responses-stream-text",
+      "status": "passed",
+      "max_depth": 0,
+      "llm_run_count": 1,
+      "tool_run_count": 0,
+      "true_streaming_timing": true
+    },
+    {
+      "name": "langchain-tool-trace",
+      "status": "passed",
+      "max_depth": 1,
+      "llm_run_count": 1,
+      "tool_call_evidence": true
+    },
+    {
+      "name": "deepagents-trace",
+      "status": "passed",
+      "max_depth": 5,
+      "llm_run_count": 4,
+      "tool_run_count": 3
+    }
+  ]
+}

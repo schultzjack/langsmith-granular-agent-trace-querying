@@ -1,0 +1,61 @@
+From 8b70bd065a58c1a239a71bf84603b414dd6c9f37 Mon Sep 17 00:00:00 2001
+From: redacted-local-author <redacted@example.invalid>
+Date: Thu, 28 May 2026 20:15:53 -0400
+Subject: [PATCH] Document granular LangSmith CLI run querying
+
+---
+ src/langsmith/langsmith-cli.mdx | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/src/langsmith/langsmith-cli.mdx b/src/langsmith/langsmith-cli.mdx
+index ef2939f5..fe04630f 100644
+--- a/src/langsmith/langsmith-cli.mdx
++++ b/src/langsmith/langsmith-cli.mdx
+@@ -183,7 +183,10 @@ langsmith trace list --project my-app --error                     # errors only
+ langsmith trace list --project my-app --min-latency 5             # slow traces (>5s)
+ langsmith trace list --project my-app --tags production           # filter by tag
+ langsmith trace list --project my-app --full                      # all fields
++langsmith trace list --project my-app --include-all               # raw run JSON
+ langsmith trace list --project my-app --show-hierarchy --limit 3  # include full run tree
++langsmith trace list --project my-app --tree-filter 'eq(name, "RetrieveDocs")'
++langsmith trace list --project my-app --include-all --agent-type subagent --min-depth 2
+ langsmith trace get <trace-id> --project my-app --full
+ langsmith trace export ./traces --project my-app --limit 20 --full
+ ```
+@@ -196,6 +199,8 @@ Defaults to 50 results (most other commands default to 20). The same 7-day time
+ langsmith run list --project my-app --run-type llm
+ langsmith run list --project my-app --run-type tool --name search
+ langsmith run list --project my-app --min-tokens 1000 --include-metadata
++langsmith run list --project my-app --include-all --agent-type subagent --min-depth 2
++langsmith run list --project my-app --include-all --field extra.metadata.phase=planning
+ langsmith run get <run-id> --full
+ langsmith run export llm_calls.jsonl --project my-app --run-type llm --full
+ ```
+@@ -335,9 +340,18 @@ Most `trace` and `run` commands share these filters:
+ | `--min-latency` / `--max-latency` | Latency range in seconds | `--min-latency 2.5` |
+ | `--min-tokens` | Minimum total tokens | `--min-tokens 1000` |
+ | `--tags` | Tags, comma-separated (OR logic) | `--tags prod,v2` |
++| `--parent-run-id` | Direct children of a parent run | `--parent-run-id <run-id>` |
++| `--trace-filter` | Raw LangSmith filter DSL applied to root runs | `--trace-filter 'eq(feedback_key, "score")'` |
++| `--tree-filter` | Raw LangSmith filter DSL applied to any run in the trace tree | `--tree-filter 'eq(name, "RetrieveDocs")'` |
++| `--agent-type` | Client-side `extra.metadata.ls_agent_type` filter | `--agent-type subagent` |
++| `--min-depth` | Client-side minimum run depth, where root is `0` | `--min-depth 2` |
++| `--max-depth` | Client-side maximum run depth, where root is `0` | `--max-depth 4` |
++| `--field` | Client-side `path=value` filter over hydrated run JSON. Repeatable. | `--field extra.metadata.phase=planning` |
+ | `--filter` | Raw LangSmith filter DSL | `--filter 'eq(status, "error")'` |
+ | `--trace-ids` | Specific trace IDs | `--trace-ids abc123,def456` |
+ 
++Use `--trace-filter`, `--tree-filter`, and `--parent-run-id` when the LangSmith API can apply the predicate server-side. Use `--include-all` with `--field`, `--agent-type`, and depth filters when you need to query over hydrated run fields or arbitrary trace hierarchy depth. On `trace list` and `trace export`, local depth, agent type, and field filters match any run in the trace tree. The `depth` field is derived from `parent_run_ids` or `dotted_order`; root runs have depth `0`.
++
+ **Detail flags** — control which fields are included in the response:
+ 
+ | Flag | Adds |
+@@ -346,4 +360,5 @@ Most `trace` and `run` commands share these filters:
+ | `--include-io` | Inputs, outputs, error |
+ | `--include-feedback` | Feedback stats |
+ | `--full` | All of the above |
++| `--include-all` | All selectable run fields, plus derived `run_id`, `depth`, and `agent_type` fields |
+ | `--show-hierarchy` | Full run tree (traces only) |
+-- 
+2.50.1 (Apple Git-155)
+

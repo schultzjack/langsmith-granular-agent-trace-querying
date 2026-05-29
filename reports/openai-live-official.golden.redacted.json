@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "source": "official_openai",
+  "recorded_at": "2026-05-29T15:17:34.521Z",
+  "sdk_package": {
+    "name": "openai",
+    "version": "6.39.1"
+  },
+  "model": "gpt-5.5",
+  "cases": {
+    "chat_tool_call": {
+      "request": {
+        "model": "gpt-5.5",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Call lookup_trace_contract with query 'langsmith trace depth'. Do not answer directly."
+          }
+        ],
+        "tool_choice": "required",
+        "parallel_tool_calls": false,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_trace_contract",
+              "description": "Look up trace contract details.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "query"
+                ],
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "normalized_response": {
+        "object": "chat.completion",
+        "finish_reason": "tool_calls",
+        "message": {
+          "role": "assistant",
+          "content_kind": "null",
+          "tool_calls": [
+            {
+              "type": "function",
+              "name": "lookup_trace_contract",
+              "arguments_shape": {
+                "query": "string"
+              }
+            }
+          ]
+        },
+        "usage_present": true
+      }
+    },
+    "chat_tool_call_stream": {
+      "request": {
+        "model": "gpt-5.5",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Call lookup_trace_contract with query 'langsmith trace depth'. Do not answer directly."
+          }
+        ],
+        "tool_choice": "required",
+        "parallel_tool_calls": false,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_trace_contract",
+              "description": "Look up trace contract details.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "query"
+                ],
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        }
+      },
+      "normalized_stream": {
+        "chunk_count": 11,
+        "has_assistant_role_delta": true,
+        "has_tool_call_delta": true,
+        "has_usage_chunk": true,
+        "finish_reasons": [
+          "tool_calls"
+        ],
+        "timing": {
+          "chunk_count": 11,
+          "nonzero_gap_count": 6,
+          "max_inter_chunk_ms": 130,
+          "temporal_class": "incremental",
+          "true_incremental_timing": true
+        }
+      }
+    },
+    "responses_structured": {
+      "request": {
+        "model": "gpt-5.5",
+        "input": "Return a JSON object with answer set to ok and scenario set to responses-structured.",
+        "store": true,
+        "text": {
+          "format": {
+            "type": "json_schema",
+            "name": "contract_answer",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "answer",
+                "scenario"
+              ],
+              "properties": {
+                "answer": {
+                  "type": "string"
+                },
+                "scenario": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "normalized_response": {
+        "object": "response",
+        "status": "completed",
+        "output_types": [
+          "message"
+        ],
+        "output_text_shape": {
+          "answer": "string",
+          "scenario": "string"
+        },
+        "function_calls": [],
+        "usage_present": true
+      }
+    },
+    "responses_text_stream": {
+      "request": {
+        "model": "gpt-5.5",
+        "input": "Reply with the exact text: responses stream ok",
+        "store": true,
+        "stream": true
+      },
+      "normalized_stream": {
+        "event_count": 13,
+        "event_types": [
+          "response.created",
+          "response.in_progress",
+          "response.output_item.added",
+          "response.output_item.done",
+          "response.content_part.added",
+          "response.output_text.delta",
+          "response.output_text.done",
+          "response.content_part.done",
+          "response.completed"
+        ],
+        "has_output_text_delta": true,
+        "has_response_completed": true,
+        "timing": {
+          "chunk_count": 13,
+          "nonzero_gap_count": 8,
+          "max_inter_chunk_ms": 506,
+          "temporal_class": "incremental",
+          "true_incremental_timing": true
+        }
+      }
+    }
+  }
+}
