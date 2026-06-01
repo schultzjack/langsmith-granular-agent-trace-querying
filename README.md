@@ -2,7 +2,7 @@
 
 How granularly can LangSmith agent traces be queried today, especially when traces contain nested agents, subagents, tool calls, and deep parent/child run trees?
 
-Short answer: very granularly, with one important boundary. LangSmith exposes server-side filters for root runs, child runs, tree membership, metadata, run type, and selected run fields. Exact depth predicates and arbitrary hydrated JSON-path predicates can be computed locally after loading the full trace tree.
+Short answer: very granularly, with one important boundary. LangSmith exposes server-side filters for root runs, child runs, tree membership, metadata, run type, selected run fields, and exact run depth through the system metadata key `ls_run_depth`. Hydrated trace-tree analysis remains useful for max/min-depth summaries, path extraction, and arbitrary returned-field predicates that are not indexed as first-class filters.
 
 This repo is an evidence-backed investigation, not a general agent demo. It is written for people building or evaluating agent observability workflows, including the teams and ecosystems around [LangChain](https://www.langchain.com/) and [Blitzy](https://blitzy.com/). The useful part is the boundary line: what can be queried server-side today, what can be proved from hydrated traces, and what would need first-class product support to become native search.
 
@@ -13,8 +13,9 @@ This repo is an evidence-backed investigation, not a general agent demo. It is w
 - Any-run-in-tree filtering via `treeFilter`.
 - Run selection by run type, including `llm`, `chain`, and `tool`.
 - Metadata filtering for scenario IDs and run IDs.
+- Exact run-depth filtering through `ls_run_depth`, including trace-level selection with `treeFilter`.
 - Full trace hydration with child runs loaded.
-- Local `min_depth` / `max_depth` analysis over hydrated trace trees.
+- Local `min_depth` / `max_depth` summaries over hydrated trace trees.
 - Tool-call evidence detection in LLM outputs and tool runs.
 - DeepAgents traces with meaningful nested parent/child structure.
 
@@ -49,7 +50,7 @@ Scenario coverage:
 - [docs/scope-and-limits.md](docs/scope-and-limits.md): exact server-side versus hydrated-local boundary.
 - [docs/reproducibility.md](docs/reproducibility.md): how to rerun the examples and regenerate reports.
 - [examples/](examples/): minimal OpenAI SDK, LangChain, DeepAgents, and LangSmith-query scripts.
-- [reports/](reports/): redacted live reports and official OpenAI golden fixtures.
+- [reports/](reports/): redacted live reports, exact-depth filter checks, and official OpenAI golden fixtures.
 - [upstream/](upstream/): optional PR body drafts and patch artifacts for LangSmith CLI/docs follow-up work.
 
 ## Quick Start
@@ -77,4 +78,4 @@ This repo does not claim that every hydrated field is natively indexed in hosted
 
 - Server-side filtering where LangSmith exposes query arguments.
 - Local analysis where the data is available after trace hydration.
-- Clear product follow-up candidates for native exact-depth and arbitrary JSON-path search.
+- Clear product follow-up candidates for arbitrary hydrated JSON-path search and richer compound predicates over returned trace-tree payloads.

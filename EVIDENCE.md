@@ -34,12 +34,13 @@ model: gpt-5.5
 | Any-run-in-tree selection | `treeFilter` | Not required | verified |
 | Run type filtering | `filter` / run fields | Optional | verified |
 | Metadata filtering | `filter`, `traceFilter`, `treeFilter` | Optional | verified |
+| Exact run-depth filtering | `filter` / `treeFilter` over `ls_run_depth` | Optional for summaries | verified live |
 | Inputs and outputs inspection | Returned run fields | Field-path checks after hydration | verified |
 | Tool-call evidence | Returned LLM outputs and tool runs | Normalization across providers | verified |
 | Parent/child relationships | `parentRunId`, child runs | Tree traversal | verified |
-| Max-depth/min-depth predicates | Not currently native as an exact depth operator | Computed from hydrated tree | verified locally |
+| Max-depth/min-depth summaries | Candidate selection by `ls_run_depth`; aggregate summaries after hydration | Computed from hydrated tree | verified live/local |
 | Arbitrary hydrated JSON-path predicates | Limited by indexed filter support | Computed from returned run JSON | verified locally |
 
 ## Scope Boundary
 
-The evidence supports the trace-querying workflow directly. It does not claim that every possible hosted UI or backend index path already has a first-class exact-depth or arbitrary JSON-path filter. Those remain natural candidates for native LangSmith enhancements if the workflow should move from client-side analysis into hosted search.
+The evidence supports the trace-querying workflow directly. A follow-up live check on June 1, 2026 verified that `filter` can select runs with `ls_run_depth = 0`, `1`, `2`, and `5`, and `treeFilter` can select root traces containing a run with `ls_run_depth = 2`; see [`reports/langsmith-depth-filter-check-2026-06-01.redacted.json`](reports/langsmith-depth-filter-check-2026-06-01.redacted.json). The remaining boundary is not simple exact depth; it is arbitrary hydrated JSON-path predicates and richer compound searches over returned trace-tree payloads that are not already represented as indexed run fields or metadata.

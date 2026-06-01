@@ -4,7 +4,8 @@ const reportPaths = [
   "reports/handoff-contract-report.redacted.json",
   "reports/openai-live-official.golden.redacted.json",
   "reports/official-openai-golden-summary.redacted.json",
-  "reports/version-audit-2026-05-29.json",
+  "reports/version-audit-2026-06-01.json",
+  "reports/langsmith-depth-filter-check-2026-06-01.redacted.json",
 ];
 
 for (const path of reportPaths) {

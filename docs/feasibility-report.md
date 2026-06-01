@@ -7,7 +7,7 @@ Yes, we can accomplish the feature in the public open-source LangSmith/LangChain
 - We can ship a practical implementation in the public `langchain-ai/langsmith-cli` repository and document it in the public `langchain-ai/docs` repository.
 - We cannot implement native hosted-LangSmith backend indexing, server-side query semantics, or hosted UI behavior from public code, because there is no public `langchain-ai/langsmith` app/backend repository.
 
-The implemented OSS path exposes maximum practical granularity through the CLI: request all selectable run fields, preserve raw hydrated run JSON, derive trace depth, filter locally over arbitrary JSON paths for spans at any trace depth, and find traces whose tree contains matching n-depth subagent spans.
+The implemented OSS path exposes maximum practical granularity through the CLI: request all selectable run fields, preserve raw hydrated run JSON, derive trace depth for output and summaries, filter locally over arbitrary JSON paths, and find traces whose tree contains matching agent/subagent spans. Current LangSmith system metadata also supports exact run-depth filtering through `ls_run_depth`.
 
 ## Public Repositories Checked
 
@@ -25,6 +25,7 @@ Server/API-side:
 - `trace_filter`: applies to the root run in a trace tree.
 - `tree_filter`: applies to other runs in the trace tree, including child/sibling runs.
 - `parent_run_id`: returns direct children of a run.
+- `ls_run_depth`: system metadata that supports exact run-depth filtering through the filter DSL.
 - `select`: controls which run fields are returned.
 
 Run hierarchy fields:
@@ -38,10 +39,10 @@ Run hierarchy fields:
 Client-side hydrated querying added in the CLI patch:
 
 - `--include-all`: requests every current public `langsmith-go` `RunQueryParamsSelect` field and emits raw run JSON.
-- `--min-depth` / `--max-depth`: query arbitrary n-depth spans.
+- `--min-depth` / `--max-depth`: provide client-side range filtering and derived depth output; exact depth can also be expressed server-side with `ls_run_depth`.
 - `--agent-type`: filters `extra.metadata.ls_agent_type`, including OpenAI Agents SDK `subagent` spans where that metadata is present.
 - `--field path=value`: repeatable exact-match filter over hydrated JSON paths, including nested objects and numeric array indices.
-- On `trace list` and `trace export`, local depth, agent type, and field filters match any run in each candidate trace tree. This supports trace-level queries such as "traces containing a depth-2 subagent span".
+- On `trace list` and `trace export`, local depth, agent type, and field filters match any run in each candidate trace tree. This supports trace-level queries that combine depth-like selection with fields that are only available after hydration.
 
 ## Implemented Artifacts
 
@@ -100,8 +101,8 @@ Checked current open upstream work on May 29, 2026:
 
 If LangChain wants this feature natively in the hosted UI or indexed query backend, the LangSmith app/backend would need to add or expose:
 
-- Server-side filters for depth or hierarchy position, such as `depth`, `min_depth`, or `max_depth`.
-- Indexed filters for selected metadata paths such as `extra.metadata.ls_agent_type`.
+- Server-side range filters or first-class aliases for hierarchy position, such as `min_depth`, `max_depth`, or non-metadata depth fields.
+- Indexed filters for selected non-system metadata paths such as `extra.metadata.ls_agent_type`.
 - Clear server semantics for arbitrary nested `extra`, `inputs`, and `outputs` paths beyond the documented filter DSL and key-value search limits.
 - UI affordances for depth and agent/subagent filters in the trace and details views.
 

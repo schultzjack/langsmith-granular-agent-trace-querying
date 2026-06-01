@@ -14,7 +14,7 @@ os.environ.setdefault(
 def lookup_trace_contract(query: str) -> str:
     """Return a tiny trace-querying fact for the agent to use."""
 
-    return f"LangSmith trace query note for {query}: hydrate child runs before exact depth checks."
+    return f"LangSmith trace query note for {query}: use ls_run_depth for exact depth, then hydrate child runs for arbitrary field checks."
 
 
 agent = create_deep_agent(

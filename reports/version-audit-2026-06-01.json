@@ -1,9 +1,10 @@
 {
-  "audit_date": "2026-05-29",
+  "audit_date": "2026-06-01",
   "source": {
     "npm": "npm view <package> version --json",
     "pypi": "python3 -m pip index versions <package>"
   },
+  "note": "Pinned versions are kept for reproducibility. Packages marked pinned-not-latest had newer releases available at audit time but were not required for the evidence package checks to pass.",
   "npm": {
     "@langchain/core": {
       "latest": "1.1.48",
@@ -15,20 +16,15 @@
       "repo_pin": "1.4.7",
       "status": "current"
     },
-    "@langchain/langgraph": {
-      "latest": "1.3.2",
-      "repo_pin": null,
-      "status": "not-yet-covered-directly"
-    },
     "langsmith": {
       "latest": "0.7.3",
       "repo_pin": "0.7.3",
       "status": "current"
     },
     "openai": {
-      "latest": "6.39.1",
+      "latest": "6.40.0",
       "repo_pin": "6.39.1",
-      "status": "current"
+      "status": "pinned-not-latest"
     },
     "zod": {
       "latest": "4.4.3",
@@ -53,24 +49,24 @@
       "status": "current"
     },
     "langgraph": {
-      "latest": "1.2.2",
+      "latest": "1.2.3",
       "repo_pin": "1.2.2",
-      "status": "current"
+      "status": "pinned-not-latest"
     },
     "langsmith": {
-      "latest": "0.8.7",
+      "latest": "0.8.8",
       "repo_pin": "0.8.7",
-      "status": "current"
+      "status": "pinned-not-latest"
     },
     "deepagents": {
-      "latest": "0.6.6",
+      "latest": "0.6.7",
       "repo_pin": "0.6.6",
-      "status": "current"
+      "status": "pinned-not-latest"
     },
     "openai": {
-      "latest": "2.38.0",
+      "latest": "2.39.0",
       "repo_pin": "2.38.0",
-      "status": "current"
+      "status": "pinned-not-latest"
     },
     "python-dotenv": {
       "latest": "1.2.2",
